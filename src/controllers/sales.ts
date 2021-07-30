@@ -32,5 +32,5 @@ export async function addSale(req: Request, res: Response) {
     return res.status(500).json({ ok: false, data: 'Unable to create new sale' });
   }
 
-  return res.status(200).json({ ok: true, newSale });
+  return res.status(200).json({ ok: true, sale: newSale });
 }

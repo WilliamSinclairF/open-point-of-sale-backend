@@ -21,4 +21,7 @@ export class Sale {
 
   @Column()
   amount: number;
+
+  @Column({ nullable: true })
+  note: string;
 }

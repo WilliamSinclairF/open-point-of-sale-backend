@@ -52,6 +52,7 @@ export class User extends BaseEntity {
     newSale.user = this;
     newSale.store = store;
     newSale.amount = saleOptions.amount;
+    newSale.note = saleOptions.note;
     try {
       await connection.manager.save(newSale);
       await connection.manager.save(store);

@@ -1,5 +1,5 @@
-export interface ISale {
-  id?: number;
+export interface Sale {
+  id?: string;
   employeeId?: string;
   customerId?: string;
   storeId?: string;
