@@ -1,14 +1,14 @@
-export interface Store {
+export interface IStore {
   id: string;
   name: string;
   description?: string;
   address: string;
   createdAt: Date;
   modifiedAt: Date;
-  storeSettings: StoreSettings;
+  storeSettings: IStoreSettings;
 }
 
-export interface StoreSettings {
+export interface IStoreSettings {
   taxCode: string;
   open: boolean;
 }

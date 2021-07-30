@@ -1,7 +1,8 @@
+import { User } from './../entity/User';
 import { Request, Response } from 'express';
-import { Store } from 'src/interfaces/store';
+import { IStore } from 'src/interfaces/store';
 
-const stores: Store[] = [
+const stores: IStore[] = [
   {
     id: 'dfshdfksdhfsdklf1',
     name: 'My Store',
@@ -28,8 +29,18 @@ const stores: Store[] = [
   },
 ];
 
-export function getAllStores(_req: Request, res: Response) {
-  return res.status(200).json(stores);
+export async function getAllStores(req: Request, res: Response) {
+  const userId = req.currentUser.uid;
+
+  const user = await User.findOne({ uid: userId });
+
+  if (!user) {
+    return res.status(404).json({ ok: false, data: 'User not found' });
+  }
+
+  const stores = await user.getStores();
+
+  return res.json(stores);
 }
 
 export function addStore(req: Request, res: Response) {
