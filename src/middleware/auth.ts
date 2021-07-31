@@ -32,8 +32,18 @@ export async function decodeIDToken(req: Request, res: Response, next: NextFunct
         const connection = getConnection();
         const user = new User();
         user.uid = req.currentUser.uid;
-        await connection.manager.save(user);
+        user.email = req.currentUser.email!;
+        const result = await connection.manager.save(user);
+        req.currentUser.id = result.id;
+        return next();
       }
+
+      if (req.currentUser.email !== userInDatabase?.email) {
+        userInDatabase.email = req.currentUser.email!;
+        await userInDatabase.save();
+      }
+
+      req.currentUser.id = userInDatabase.id;
     }
   } catch (err) {
     console.log(err);

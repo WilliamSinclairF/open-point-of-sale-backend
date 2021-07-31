@@ -27,11 +27,14 @@ export class User extends BaseEntity {
   @Column()
   uid: string;
 
-  @ManyToMany(() => Store, (store) => store.users)
+  @Column()
+  email: string;
+
+  @ManyToMany(() => Store, (store) => store.users, { cascade: true })
   @JoinTable()
   stores: Store[];
 
-  @OneToMany(() => Sale, (sale) => sale.user)
+  @OneToMany(() => Sale, (sale) => sale.user, { cascade: true })
   sales: Sale[];
 
   async getStores() {

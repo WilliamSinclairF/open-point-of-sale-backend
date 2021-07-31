@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToMany,
-  JoinTable,
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
@@ -27,10 +26,9 @@ export class Store extends BaseEntity {
   modifiedAt: Date;
 
   @ManyToMany(() => User, (user) => user.stores)
-  @JoinTable()
   users: User[];
 
-  @OneToMany(() => Sale, (sale) => sale.store)
+  @OneToMany(() => Sale, (sale) => sale.store, { cascade: true })
   sales: Sale[];
 
   @Column()
@@ -42,7 +40,11 @@ export class Store extends BaseEntity {
   @Column()
   address: string;
 
-  @OneToOne(() => StoreSettings)
+  @OneToOne(() => StoreSettings, { cascade: true })
   @JoinColumn()
   storeSettings: StoreSettings;
+
+  getSales() {
+    return this.sales;
+  }
 }
