@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import { createConnection } from 'typeorm';
 import { decodeIDToken } from './middleware/auth';
@@ -15,7 +16,8 @@ app.use('/stores', storesRouter);
 
 app.listen(PORT, async () => {
   try {
-    await createConnection();
+    const isInDev = process.env.DEV === 'true';
+    await createConnection(isInDev ? 'dev' : 'prod');
   } catch (error) {
     console.log(error);
   }
