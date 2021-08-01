@@ -21,11 +21,7 @@ module.exports = [
   {
     name: 'prod',
     type: 'postgres',
-    host: process.env.QOVERY_POSTGRESQL_ZDDD7F0A9_HOST,
-    port: process.env.QOVERY_POSTGRESQL_ZDDD7F0A9_PORT,
-    username: process.env.QOVERY_POSTGRESQL_ZDDD7F0A9_USER,
-    password: process.env.QOVERY_POSTGRESQL_ZDDD7F0A9_PASSWORD,
-    database: process.env.QOVERY_POSTGRESQL_ZDDD7F0A9_DATABASE,
+    url: process.env.DATABASE_URL,
     synchronize: true,
     logging: true,
     entities: ['src/entity/**/*.ts'],
