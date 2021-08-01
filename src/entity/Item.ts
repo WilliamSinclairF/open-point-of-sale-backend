@@ -1,8 +1,8 @@
 import { TaxCode } from './TaxCode';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()
-export class StoreSettings {
+export class Item {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,9 +12,12 @@ export class StoreSettings {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
   modifiedAt: Date;
 
-  @Column()
-  open: boolean;
+  @ManyToOne(() => TaxCode, (taxCode) => taxCode.items)
+  taxCode: TaxCode;
 
-  @OneToMany(() => TaxCode, (taxCode) => taxCode.storeSettings)
-  taxCodes: TaxCode[];
+  @Column()
+  name: string;
+
+  @Column()
+  description: string;
 }

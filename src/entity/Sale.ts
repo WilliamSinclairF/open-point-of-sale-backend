@@ -1,4 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Item } from './Item';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Store } from './Store';
 import { User } from './User';
 
@@ -12,6 +22,10 @@ export class Sale {
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
   modifiedAt: Date;
+
+  @ManyToMany(() => Item)
+  @JoinTable()
+  items: Item[];
 
   @ManyToOne(() => Store, (store) => store.sales)
   store: Store;

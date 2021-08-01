@@ -40,7 +40,7 @@ export class Store extends BaseEntity {
   @Column()
   address: string;
 
-  @OneToOne(() => StoreSettings, { cascade: true })
+  @OneToOne(() => StoreSettings, { cascade: true, eager: true })
   @JoinColumn()
   storeSettings: StoreSettings;
 

@@ -43,6 +43,9 @@ export class User extends BaseEntity {
       .getRepository(Store)
       .createQueryBuilder('store')
       .leftJoin('store.users', 'user')
+      .leftJoinAndSelect('store.storeSettings', 'settings')
+      .leftJoinAndSelect('settings.taxCodes', 'taxCodes')
+      .leftJoinAndSelect('taxCodes.taxRates', 'taxRates')
       .where('user.id = :id', { id: this.id })
       .getMany();
     return stores;

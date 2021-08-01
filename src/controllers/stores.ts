@@ -66,3 +66,5 @@ export async function addStore(req: Request, res: Response) {
     return res.status(500).json({ ok: false, data: 'Unable to create store' });
   }
 }
+
+export async function createStoreSettings(_req: Request, _res: Response) {}
