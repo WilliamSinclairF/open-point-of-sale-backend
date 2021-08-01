@@ -1,3 +1,5 @@
+const join = require('path').join;
+
 module.exports = [
   {
     name: 'dev',
@@ -9,7 +11,7 @@ module.exports = [
     database: 'test',
     synchronize: true,
     logging: true,
-    entities: ['src/entity/**/*.ts'],
+    entities: [join(__dirname, '**', '*.entity.{ts,js}')],
     migrations: ['src/migration/**/*.ts'],
     subscribers: ['src/subscriber/**/*.ts'],
     cli: {
@@ -24,7 +26,7 @@ module.exports = [
     url: process.env.DATABASE_URL,
     synchronize: true,
     logging: true,
-    entities: ['src/entity/**/*.ts'],
+    entities: [join(__dirname, '**', '*.entity.{ts,js}')],
     migrations: ['src/migration/**/*.ts'],
     subscribers: ['src/subscriber/**/*.ts'],
     cli: {

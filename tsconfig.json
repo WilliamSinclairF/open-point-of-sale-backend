@@ -20,8 +20,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "downlevelIteration": true,
-    "typeRoots": ["@types", "./node_modules/@types"],
-    "resolveJsonModule": true
+    "typeRoots": ["@types", "./node_modules/@types"]
   },
 
   "include": ["sample", "src", "test"],
