@@ -16,8 +16,7 @@ app.use('/stores', storesRouter);
 
 app.listen(PORT, async () => {
   try {
-    const isInDev = process.env.DEV === 'true';
-    await createConnection(isInDev ? 'dev' : 'prod');
+    await createConnection();
   } catch (error) {
     console.log(error);
   }

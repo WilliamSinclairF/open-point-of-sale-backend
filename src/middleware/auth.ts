@@ -3,7 +3,18 @@ import { User } from './../entity/User';
 import { NextFunction, Request, Response } from 'express';
 import admin, { ServiceAccount } from 'firebase-admin';
 
-import serviceAccount from '../firebase-admin.json';
+const serviceAccount = {
+  type: 'service_account',
+  project_id: process.env.FB_PROJECT_ID,
+  private_key_id: process.env.FB_PRIVATE_KEY_ID,
+  private_key: process.env.FB_PRIVATE_KEY,
+  client_email: process.env.FB_CLIENT_EMAIL,
+  client_id: process.env.FB_CLIENT_ID,
+  auth_uri: process.env.FB_AUTH_URI,
+  token_uri: process.env.FB_TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.FB_AUTH_PROVIDER,
+  client_x509_cert_url: process.env.FB_CLIENT_CERT_URL,
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as ServiceAccount),
@@ -30,7 +41,7 @@ export async function decodeIDToken(req: Request, res: Response, next: NextFunct
       const userInDatabase = await User.findOne({ uid: req.currentUser.uid });
 
       if (!userInDatabase) {
-        const connection = getConnection();
+        const connection = getConnection(process.env.TYPEORM_CONNECTION_NAME!);
         const user = new User();
         user.uid = req.currentUser.uid;
         user.email = req.currentUser.email!;
